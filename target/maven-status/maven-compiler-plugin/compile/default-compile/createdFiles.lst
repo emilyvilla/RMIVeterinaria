@@ -1,0 +1,13 @@
+rmi\AdopcionService.class
+servidor\ServidorAdmin.class
+rmi\InventarioService.class
+rmi\CitaService.class
+cliente\ClienteAlmacen.class
+com\mycompany\rmiveterinaria\RMIVeterinaria.class
+rmi\FinanzasService.class
+cliente\ClienteRecepcion.class
+cliente\ClienteVeterinario.class
+cliente\ClienteAdministracion.class
+rmi\MascotaService.class
+servidor\ServidorClinico.class
+rmi\HistorialService.class
