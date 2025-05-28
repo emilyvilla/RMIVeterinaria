@@ -1,16 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ *
+ * @author Emily Villa
  */
 package servidor;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import rmi.*;
-/**
- *
- * @author 1
- */
+
 public class ServidorAdmin extends UnicastRemoteObject implements InventarioService, AdopcionService, FinanzasService {
 
     public ServidorAdmin() throws Exception { super(); }

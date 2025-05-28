@@ -1,9 +1,11 @@
+clases\Mascota.class
 rmi\AdopcionService.class
 servidor\ServidorAdmin.class
 rmi\InventarioService.class
 rmi\CitaService.class
 cliente\ClienteAlmacen.class
 com\mycompany\rmiveterinaria\RMIVeterinaria.class
+clases\Cita.class
 rmi\FinanzasService.class
 cliente\ClienteRecepcion.class
 cliente\ClienteVeterinario.class
