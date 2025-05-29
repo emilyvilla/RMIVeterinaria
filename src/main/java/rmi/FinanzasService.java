@@ -1,14 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package rmi;
 
 import java.rmi.Remote;
-/**
- *
- * @author 1
- */
+import java.rmi.RemoteException;
+import java.util.List;
+import java.util.Map;
 
 public interface FinanzasService extends Remote {
+    String registrarPago(String concepto, double monto) throws RemoteException;
+    Map<String, Double> obtenerPagos() throws RemoteException;
+    double obtenerBalance() throws RemoteException;
 }
