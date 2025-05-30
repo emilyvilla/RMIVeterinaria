@@ -1,7 +1,3 @@
-/**
- *
- * @author Emily Villa
- */
 package servidor;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
