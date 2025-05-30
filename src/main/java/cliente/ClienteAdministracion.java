@@ -8,7 +8,6 @@ import javax.swing.table.DefaultTableModel;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Map;
-
 /**
  * Cliente de Administración.
  * Gestiona adopciones, finanzas y visualización cruzada de servicios.
