@@ -1,7 +1,3 @@
-/**
- *
- * @author Emily Villa
- */
 package rmi;
 
 import clases.Mascota;
@@ -15,4 +11,6 @@ public interface MascotaService extends Remote {
     String eliminarMascota(String id) throws RemoteException;
     Mascota consultarMascota(String id) throws RemoteException;
     List<Mascota> listarMascotasPorDueno(String cedula) throws RemoteException;
+
+    Mascota consultarMascotaPorNombre(String nombre) throws RemoteException;
 }
