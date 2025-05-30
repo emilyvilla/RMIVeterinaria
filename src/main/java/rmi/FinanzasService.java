@@ -1,7 +1,9 @@
+
 /**
  *
  * @Emily Villa
  */
+
 package rmi;
 
 import java.rmi.Remote;
@@ -15,4 +17,5 @@ public interface FinanzasService extends Remote {
     List<String> pagosPorMascota(String nombreMascota) throws RemoteException;
     String balanceGeneral() throws RemoteException;
 }
+
 
