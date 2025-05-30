@@ -9,8 +9,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 /**
- * ClienteVeterinario
- * Cliente para que los veterinarios registren diagnósticos, tratamientos y solicitudes de insumos.
+ * ClienteVeterinario Cliente para que los veterinarios registren diagnósticos,
+ * tratamientos y solicitudes de insumos.
  */
 public class ClienteVeterinario {
 
@@ -88,11 +88,12 @@ public class ClienteVeterinario {
         frame.add(scrollLog);
 
         // Acción: Registrar historial
+        // Acción: Registrar historial
         btnGuardarHistorial.addActionListener(e -> {
             try {
                 String mascota = txtMascota.getText();
                 String detalle = txtDetalle.getText();
-                String respuesta = historialService.agregarHistorial(mascota, detalle);
+                String respuesta = historialService.agregarEntradaMedica(mascota, detalle);
                 txtLog.append("✔ " + respuesta + "\n");
             } catch (Exception ex) {
                 ex.printStackTrace();

@@ -6,11 +6,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.List;
 import java.util.Map;
 
 /**
- * Cliente de Administración.
- * Gestiona adopciones, finanzas y visualización cruzada de servicios.
+ * @Dayro
+ * Cliente de Administración. Gestiona adopciones, finanzas y visualización
+ * cruzada de servicios.
  */
 public class ClienteAdministracion {
 
@@ -51,37 +53,62 @@ public class ClienteAdministracion {
         frame.setLayout(null);
 
         // --- Panel de Adopciones ---
-        JLabel lblAdopcion = new JLabel("Mascota en Adopción:");
-        lblAdopcion.setBounds(20, 20, 150, 25);
-        frame.add(lblAdopcion);
+        // --- Panel de Adopciones ---
+        JLabel lblID = new JLabel("ID Mascota:");
+        lblID.setBounds(20, 20, 100, 25);
+        frame.add(lblID);
 
-        JTextField txtMascotaAdop = new JTextField();
-        txtMascotaAdop.setBounds(170, 20, 200, 25);
-        frame.add(txtMascotaAdop);
+        JTextField txtID = new JTextField();
+        txtID.setBounds(110, 20, 80, 25);
+        frame.add(txtID);
+
+        JLabel lblNombre = new JLabel("Nombre:");
+        lblNombre.setBounds(200, 20, 60, 25);
+        frame.add(lblNombre);
+
+        JTextField txtNombre = new JTextField();
+        txtNombre.setBounds(260, 20, 100, 25);
+        frame.add(txtNombre);
+
+        JLabel lblEstado = new JLabel("Estado:");
+        lblEstado.setBounds(370, 20, 60, 25);
+        frame.add(lblEstado);
+
+        JTextField txtEstado = new JTextField("disponible");
+        txtEstado.setBounds(430, 20, 100, 25);
+        frame.add(txtEstado);
 
         JButton btnAdopcion = new JButton("Registrar Adopción");
-        btnAdopcion.setBounds(390, 20, 180, 25);
+        btnAdopcion.setBounds(540, 20, 160, 25);
         frame.add(btnAdopcion);
 
         // --- Panel Financiero ---
-        JLabel lblPago = new JLabel("Concepto:");
-        lblPago.setBounds(20, 60, 100, 25);
-        frame.add(lblPago);
+        JLabel lblCedula = new JLabel("Cédula:");
+        lblCedula.setBounds(20, 60, 60, 25);
+        frame.add(lblCedula);
+
+        JTextField txtCedula = new JTextField();
+        txtCedula.setBounds(80, 60, 100, 25);
+        frame.add(txtCedula);
+
+        JLabel lblConcepto = new JLabel("Concepto:");
+        lblConcepto.setBounds(190, 60, 70, 25);
+        frame.add(lblConcepto);
 
         JTextField txtConcepto = new JTextField();
-        txtConcepto.setBounds(100, 60, 150, 25);
+        txtConcepto.setBounds(260, 60, 120, 25);
         frame.add(txtConcepto);
 
         JLabel lblMonto = new JLabel("Monto:");
-        lblMonto.setBounds(260, 60, 50, 25);
+        lblMonto.setBounds(390, 60, 50, 25);
         frame.add(lblMonto);
 
         JTextField txtMonto = new JTextField();
-        txtMonto.setBounds(310, 60, 100, 25);
+        txtMonto.setBounds(440, 60, 80, 25);
         frame.add(txtMonto);
 
         JButton btnPago = new JButton("Registrar Pago");
-        btnPago.setBounds(420, 60, 150, 25);
+        btnPago.setBounds(530, 60, 150, 25);
         frame.add(btnPago);
 
         // --- Reportes ---
@@ -114,36 +141,68 @@ public class ClienteAdministracion {
         frame.add(scrollVista);
 
         // --- Acciones de botones ---
+        // --- Acción del botón para registrar adopción ---
         btnAdopcion.addActionListener(e -> {
             try {
-                String mascota = txtMascotaAdop.getText();
-                String resultado = adopcionService.registrarAdopcion(mascota);
+                String id = txtID.getText().trim();
+                String nombre = txtNombre.getText().trim();
+                String estado = txtEstado.getText().trim();
+
+                if (id.isEmpty() || nombre.isEmpty() || estado.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Por favor, completa todos los campos.");
+                    return;
+                }
+
+                String resultado = adopcionService.registrarMascotaAdopcion(id, nombre, estado);
                 JOptionPane.showMessageDialog(frame, resultado);
             } catch (Exception ex) {
                 ex.printStackTrace();
+                JOptionPane.showMessageDialog(frame, "Error al registrar mascota en adopción.");
             }
         });
 
         btnPago.addActionListener(e -> {
             try {
-                String concepto = txtConcepto.getText();
-                double monto = Double.parseDouble(txtMonto.getText());
-                String resultado = finanzasService.registrarPago(concepto, monto);
+                String cedula = txtCedula.getText().trim();
+                String concepto = txtConcepto.getText().trim();
+                String montoStr = txtMonto.getText().trim();
+
+                if (cedula.isEmpty() || concepto.isEmpty() || montoStr.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Por favor, completa todos los campos.");
+                    return;
+                }
+
+                double monto = Double.parseDouble(montoStr);
+                String resultado = finanzasService.registrarPago(cedula, concepto, monto);
                 JOptionPane.showMessageDialog(frame, resultado);
-                txtReportes.append("Pago registrado: " + concepto + " - $" + monto + "\n");
+
+                txtReportes.append("Pago registrado: " + concepto + " - $" + monto + " (Cédula: " + cedula + ")\n");
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(frame, "El monto debe ser un número válido.");
             } catch (Exception ex) {
                 ex.printStackTrace();
+                JOptionPane.showMessageDialog(frame, "Error al registrar el pago.");
             }
         });
 
         btnVistaGeneral.addActionListener(e -> {
             try {
-                // Ejemplo simulado (puedes agregar métodos reales para obtener datos)
                 txtVista.setText("");
-                txtVista.append("Citas:\n- (Simuladas)\n");
-                txtVista.append("Historial:\n- (Simuladas)\n");
+
+                // Mostrar todas las citas
+                String citasTexto = citaService.verCitas();
+                txtVista.append("Citas:\n" + citasTexto + "\n");
+
+                // Mostrar historial médico de ejemplo (mascota con ID "1")
+                List<String> historial = historialService.consultarHistorial("1");
+                txtVista.append("\nHistorial Médico (Mascota ID 1):\n");
+                for (String entrada : historial) {
+                    txtVista.append("- " + entrada + "\n");
+                }
+
             } catch (Exception ex) {
                 ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al consultar vista general.");
             }
         });
 
@@ -154,10 +213,17 @@ public class ClienteAdministracion {
     // Método para mostrar el inventario actual
     private void actualizarInventario() {
         try {
-            Map<String, Integer> inv = inventarioService.obtenerInventario();
-            inventarioModel.setRowCount(0);
-            for (Map.Entry<String, Integer> entry : inv.entrySet()) {
-                inventarioModel.addRow(new Object[]{entry.getKey(), entry.getValue()});
+            List<String> productos = inventarioService.listarProductos();
+            inventarioModel.setRowCount(0); // Limpiar tabla
+
+            for (String prod : productos) {
+                // Suponiendo formato: "Producto - Cantidad"
+                String[] partes = prod.split(" - ");
+                if (partes.length == 2) {
+                    String nombre = partes[0].trim();
+                    int cantidad = Integer.parseInt(partes[1].trim());
+                    inventarioModel.addRow(new Object[]{nombre, cantidad});
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
