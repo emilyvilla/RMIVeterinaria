@@ -53,6 +53,17 @@ public class ServidorClinico extends UnicastRemoteObject implements MascotaServi
     public Mascota consultarMascota(String id) {
         return mascotas.get(id);
     }
+    
+    @Override
+public Mascota consultarMascotaPorNombre(String nombre) throws RemoteException {
+    for (Mascota m : mascotas.values()) {
+        if (m.getNombre().equalsIgnoreCase(nombre)) {
+            return m;
+        }
+    }
+    return null;
+}
+
 
     @Override
     public List<Mascota> listarMascotasPorDueno(String cedula) {
@@ -148,6 +159,7 @@ public class ServidorClinico extends UnicastRemoteObject implements MascotaServi
             Registry registry = LocateRegistry.createRegistry(1099);
             registry.rebind("MascotaService", servidor);
             registry.rebind("CitaService", servidor);
+            registry.rebind("HistorialService", servidor);
             System.out.println("Servidor iniciado.");
         } catch (Exception e) {
             e.printStackTrace();
@@ -179,5 +191,15 @@ public class ServidorClinico extends UnicastRemoteObject implements MascotaServi
     public List<String> consultarHistorial(String idMascota) throws RemoteException {
         return historiales.getOrDefault(idMascota, new ArrayList<>());
     }
+
+    @Override
+    public String agregarHistorial(String mascota, String detalle) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+public List<Cita> obtenerTodasLasCitas() throws RemoteException {
+    return new ArrayList<>(citas.values());
+}
 
 }
