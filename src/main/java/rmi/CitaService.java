@@ -1,7 +1,3 @@
-/**
- *
- * @author Emily Villa
- */
 package rmi;
 
 import clases.Cita;
@@ -16,4 +12,6 @@ public interface CitaService extends Remote {
     List<Cita> obtenerCitasPorMascota(String idMascota) throws RemoteException;
     List<Cita> obtenerCitasDelDia(String fecha) throws RemoteException;
     String verCitas() throws RemoteException;
+
+    List<Cita> obtenerTodasLasCitas() throws RemoteException;
 }
