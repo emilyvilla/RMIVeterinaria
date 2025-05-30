@@ -8,4 +8,6 @@ public interface HistorialService extends Remote {
     String agregarEntradaMedica(String idMascota, String entrada) throws RemoteException;
     String actualizarEntradaMedica(String idMascota, int indice, String nuevaEntrada) throws RemoteException;
     List<String> consultarHistorial(String idMascota) throws RemoteException;
+
+    String agregarHistorial(String mascota, String detalle) throws RemoteException;
 }
