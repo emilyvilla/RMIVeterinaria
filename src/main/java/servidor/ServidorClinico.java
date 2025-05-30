@@ -1,7 +1,3 @@
-/**
- *
- * @author Emily Villa
- */
 package servidor;
 
 import clases.Cita;
