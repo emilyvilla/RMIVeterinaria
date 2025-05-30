@@ -1,16 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ *
+ * @Emily Villa
  */
 package rmi;
 
 import java.rmi.Remote;
-
-/**
- *
- * @author 1
- */
-
+import java.rmi.RemoteException;
+import java.util.List;
 
 public interface InventarioService extends Remote {
+    String registrarProducto(String nombre, int cantidad) throws RemoteException;
+    String registrarEntrada(String nombre, int cantidad) throws RemoteException;
+    String registrarSalida(String nombre, int cantidad) throws RemoteException;
+    int consultarStock(String nombre) throws RemoteException;
+    List<String> listarProductos() throws RemoteException;
 }

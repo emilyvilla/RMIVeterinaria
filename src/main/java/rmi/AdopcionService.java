@@ -1,14 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ *
+ * @Emily Villa
  */
 package rmi;
 
 import java.rmi.Remote;
-/**
- *
- * @author 1
- */
-public interface AdopcionService extends Remote {
-}
+import java.rmi.RemoteException;
+import java.util.List;
 
+public interface AdopcionService extends Remote {
+    String registrarMascotaAdopcion(String id, String nombre, String estado) throws RemoteException;
+    List<String> listarMascotasAdopcion() throws RemoteException;
+    String cambiarEstadoMascota(String id, String nuevoEstado) throws RemoteException;
+    List<String> historialAdopciones(String cedula) throws RemoteException;
+}
