@@ -1,19 +1,13 @@
-
-/**
- *
- * @Emily Villa
- */
-
 package rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
+import java.util.Map;
 
 public interface InventarioService extends Remote {
+    Map<String, Integer> obtenerInventario() throws RemoteException;
+
     String registrarProducto(String nombre, int cantidad) throws RemoteException;
-    String registrarEntrada(String nombre, int cantidad) throws RemoteException;
-    String registrarSalida(String nombre, int cantidad) throws RemoteException;
+
     int consultarStock(String nombre) throws RemoteException;
-    List<String> listarProductos() throws RemoteException;
 }
